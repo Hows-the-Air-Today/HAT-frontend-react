@@ -22,6 +22,11 @@ jobs:
           token: ${{ secrets.HAT_FE_ACTIONS }}
           submodules: true
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: ${{ matrix.node-version }}
+
       # 패키지 매니저 설치
       - name: Install Yarn
         run: npm install -g yarn
