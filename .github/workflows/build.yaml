@@ -2,7 +2,7 @@ name: React Build Test
 
 on:
   push:
-    branches: [ master, main ]
+    branches-ignore: [ master, main ]
   pull_request:
     branches: [ master, main ]
 
