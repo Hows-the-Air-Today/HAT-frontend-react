@@ -1,0 +1,35 @@
+name: React Build Test
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      CI: false
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.HAT_FE_ACTIONS }}
+          submodules: true
+
+      # 패키지 매니저 설치
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      # 패키지 의존성 설치
+      - name: Install dependencies
+        run: yarn install
+
+      # React Build
+      - name: React Build
+        run: yarn build
