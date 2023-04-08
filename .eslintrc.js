@@ -67,6 +67,9 @@ module.exports = {
       2,
       { namedComponents: ["arrow-function", "function-declaration"] },
     ],
+    "react/no-unescaped-entities": "off",
+    // prop-types off
+    "react/require-default-props": "off",
     // state, prop 등에 구조분해 할당 적용
     "react/destructuring-assignment": "warn",
     // state 직접 수정 금지
@@ -83,6 +86,7 @@ module.exports = {
     "react/jsx-no-useless-fragment": "warn",
     // jsx 내 불필요한 중괄호 금지
     "react/jsx-curly-brace-presence": "warn",
+    "react/jsx-props-no-spreading": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,
@@ -92,6 +96,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-parameter-properties": 0,
     "@typescript-eslint/interface-name-prefix": 0,
+    "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "import/export": "off",
     "import/order": [
