@@ -44,7 +44,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linters@v4.10.1
+        uses: github/super-linter@v4.10.1
         env:
           LINTER_RULES_PATH: .github/workflows/linters
           JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
