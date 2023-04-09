@@ -12,6 +12,7 @@ module.exports = {
     "plugin:import/typescript",
     "plugin:import/recommended",
     "plugin:react/recommended",
+    "plugin:storybook/recommended",
     // prettier 구문이 배열의 가장 마지막에 위치해야 함
     "plugin:prettier/recommended",
   ],
