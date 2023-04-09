@@ -37,7 +37,7 @@ module.exports = {
 
   settings: {
     react: {
-      version: "latest",
+      version: "18.2.0",
     },
     "import/resolver": {
       node: {
