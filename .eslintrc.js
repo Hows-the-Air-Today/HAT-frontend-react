@@ -44,6 +44,9 @@ module.exports = {
       typescript: {
         directory: "./src",
       },
+      react: {
+        version: "latest",
+      },
     },
     "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
   },
