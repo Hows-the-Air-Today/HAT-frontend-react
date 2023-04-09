@@ -1,3 +1,5 @@
+[![React Build Test](https://github.com/Hows-the-Air-Today/HAT-frontend-react/actions/workflows/build.yaml/badge.svg)](https://github.com/Hows-the-Air-Today/HAT-frontend-react/actions/workflows/build.yaml) [![Lint Code Base](https://github.com/Hows-the-Air-Today/HAT-frontend-react/actions/workflows/linter.yaml/badge.svg)](https://github.com/Hows-the-Air-Today/HAT-frontend-react/actions/workflows/linter.yaml)
+
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=white"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/React Query-FF4154?style=flat&logo=react query&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/Recoil-007AF4?style=flat&logo=Recoil&logoColor=white"> <img src="https://img.shields.io/badge/Storybook-FF4785?style=flat&logo=storybook&logoColor=white">
 
 # HAT-frontend-react
