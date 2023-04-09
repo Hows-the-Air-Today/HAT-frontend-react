@@ -100,6 +100,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-parameter-properties": 0,
     "@typescript-eslint/interface-name-prefix": 0,
+    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "import/export": "off",
