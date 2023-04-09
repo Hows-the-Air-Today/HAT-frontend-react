@@ -36,6 +36,9 @@ module.exports = {
   },
 
   settings: {
+    react: {
+      version: "latest",
+    },
     "import/resolver": {
       node: {
         paths: ["src"],
@@ -43,9 +46,6 @@ module.exports = {
       },
       typescript: {
         directory: "./src",
-      },
-      react: {
-        version: "latest",
       },
     },
     "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
