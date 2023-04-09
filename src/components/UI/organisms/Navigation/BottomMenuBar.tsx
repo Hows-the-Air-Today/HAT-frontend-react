@@ -18,7 +18,9 @@ const BottomMenuBar: React.FC = () => {
       <MenuButton>Community</MenuButton>
       <MenuButton>Add</MenuButton>
       <MenuButton>Ranking</MenuButton>
-      <MenuButton>Profile</MenuButton>
+      <MenuButton>
+        <a href="/login">Profile</a>
+      </MenuButton>
     </StyledBottomMenuBar>
   );
 };
