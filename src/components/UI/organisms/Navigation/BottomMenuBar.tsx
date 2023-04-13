@@ -1,22 +1,28 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
-import { Icon } from "./icons";
-import { StyledBottomMenuBar, ContainerBox } from "./styles/styles";
+import styled from "styled-components";
+import tw from "twin.macro";
 
-const BottomMenuBar = (): JSX.Element => {
-  const navigate = useNavigate();
+const StyledBottomMenuBar = styled.div`
+  ${tw`fixed bottom-0 left-0 right-0 bg-white shadow-md flex`}
+`;
 
+const MenuButton = styled.button`
+  ${tw`w-1/5 text-center py-2 hover:bg-gray-200`}
+`;
+
+const BottomMenuBar: React.FC = () => {
   return (
     <StyledBottomMenuBar>
-      <ContainerBox>
-        {Icon.map((item, index) => (
-          <button onClick={() => navigate(item.path)} type="button">
-            {item.icon}
-          </button>
-        ))}
-      </ContainerBox>
+      <MenuButton>Home</MenuButton>
+      <MenuButton>Community</MenuButton>
+      <MenuButton>Add</MenuButton>
+      <MenuButton>Ranking</MenuButton>
+      <MenuButton>
+        <a href="/login">Profile</a>
+      </MenuButton>
     </StyledBottomMenuBar>
   );
 };
+
 export default BottomMenuBar;
