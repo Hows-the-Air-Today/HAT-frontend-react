@@ -4,9 +4,6 @@ import * as Rx from "react-icons/rx";
 import * as TfiIcons from "react-icons/tfi";
 import * as VscIcon from "react-icons/vsc";
 
-import styled from "styled-components";
-import tw from "twin.macro";
-
 const ICONSIZE = "2.5rem";
 const COLOR = "#80858A";
 
