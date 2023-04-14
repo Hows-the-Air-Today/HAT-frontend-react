@@ -16,7 +16,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.HAT_FE_ACTIONS }}
           MERGE_LABELS: "!wontfix"
-          MERGE_METHOD: "rebase"
+          MERGE_METHOD: "squash"
           MERGE_FORKS: "true"
           MERGE_DELETE_BRANCH: "true"
           MERGE_COMMIT_MESSAGE: "pull-request-title"
