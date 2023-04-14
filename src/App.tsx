@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+import RealTimePage from "components/pages/AirQuality/RealTimePage";
 import LoginPage from "components/pages/Auth/Login/LoginPage";
 import RegisterPage from "components/pages/Auth/Register/RegisterPage";
 
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/airquality" element={<RealTimePage />} />
       </Routes>
     </Router>
   );

@@ -15,6 +15,8 @@ module.exports = {
     "plugin:storybook/recommended",
     // prettier 구문이 배열의 가장 마지막에 위치해야 함
     "plugin:prettier/recommended",
+    "react-app",
+    "prettier",
   ],
 
   // 코드 정리 플러그인 추가
@@ -167,6 +169,7 @@ module.exports = {
     ],
     "prettier/prettier": [
       "error",
+      { endOfLine: "auto" },
       // 아래 규칙들은 개인 선호에 따라 prettier 문법 적용
       // https://prettier.io/docs/en/options.html
       {
