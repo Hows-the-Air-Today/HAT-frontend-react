@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import axios from "axios";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
+
+import { memberState } from "stores/member";
 
 import logo from "../../../../assets/images/hat-logo-black.png";
 import MainPageHeader from "../../../UI/organisms/Header/MainPageHeader";
@@ -57,6 +60,8 @@ const GridItemSubtitle = styled.p`
 
 const Profile: React.FC = () => {
   const [profileName, setProfileName] = useState("");
+  const [member, setMember] = useRecoilState(memberState);
+  //   console.log(member);
 
   const handleNotificationClick = () => {
     console.log("Notification button clicked");
@@ -70,8 +75,7 @@ const Profile: React.FC = () => {
       />
       <Content>
         <ProfileImage src="/images/very-good-hat.svg" alt="Profile image" />
-        <ProfileName>{profileName}</ProfileName>
-        <ProfileName>테스트</ProfileName>
+        <ProfileName>{member && `${member.nickname}`}</ProfileName>
         <GridContainer>
           <GridItem>
             <GridItemImage src="/images/sample1.png" alt="Sample 1" />
