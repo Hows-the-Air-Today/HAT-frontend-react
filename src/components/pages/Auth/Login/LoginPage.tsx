@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
+
+import { memberState } from "stores/member";
 
 import logo from "../../../../assets/images/hat-logo-black.png";
 import BottomMenuBar from "../../../UI/organisms/Navigation/BottomMenuBar";
@@ -33,6 +36,8 @@ const LoginButton = styled.button`
 const LoginPage: React.FC = () => {
   const [loginId, setLoginId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [member, setMember] = useRecoilState(memberState);
+  const navigate = useNavigate();
 
   const handleLoginSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -40,7 +45,7 @@ const LoginPage: React.FC = () => {
     const response = await fetch("http://localhost:11000/api/v1/auth/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify({ loginId, loginPassword }),
     });
@@ -49,12 +54,11 @@ const LoginPage: React.FC = () => {
       alert("로그인에 정보를 다시 입력해주세요");
     } else {
       const data = await response.json();
-      const { accessToken } = data;
+      setMember(data);
 
       alert("HAT에 오신 것을 환영합니다.");
     }
-
-    // 로그인 성공 시 처리하는 코드
+    navigate("/my-page");
   };
 
   return (
