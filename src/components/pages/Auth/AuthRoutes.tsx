@@ -6,8 +6,14 @@ import LoginPage from "components/pages/Auth/Login/LoginPage";
 import { memberState } from "stores";
 
 const AuthRoutes = () => {
-  const member = useRecoilValue(memberState);
-  return member !== null ? <Outlet /> : <LoginPage />;
+  const isAuthenticated = useRecoilValue(memberState) !== null;
+
+  return (
+    <>
+      {isAuthenticated && <Outlet />}
+      {!isAuthenticated && <LoginPage />}
+    </>
+  );
 };
 
 export default AuthRoutes;
