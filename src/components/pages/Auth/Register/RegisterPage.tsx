@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -36,6 +36,7 @@ const RegisterPage: React.FC = () => {
   const [loginPasswordCheck, setLoginPasswordCheck] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
+  const navigate = useNavigate();
 
   const handleSignUpSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -61,6 +62,7 @@ const RegisterPage: React.FC = () => {
       alert("회원가입에 실패하였습니다. 입력 정보를 확인해주세요.");
     } else {
       alert("회원가입이 완료되었습니다.");
+      navigate("/login");
     }
   };
 
