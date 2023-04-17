@@ -94,9 +94,15 @@ const Profile: React.FC = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const handleLogout = () => {
-    // perform logout logic
-    console.log("Logout clicked");
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:11000/api/v1/auth/logout");
+      setMember(null);
+      localStorage.removeItem("recoil-persist");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleEditProfile = () => {
