@@ -98,7 +98,6 @@ const Profile: React.FC = () => {
     try {
       await axios.post("http://localhost:11000/api/v1/auth/logout");
       setMember(null);
-      localStorage.removeItem("recoil-persist");
       navigate("/");
     } catch (error) {
       console.error(error);
