@@ -83,7 +83,7 @@ const EditMyProfile: React.FC = () => {
   };
   const handleEditPasswordClick = () => {
     console.log("Edit nickname clicked");
-    navigate(`/edit-password`);
+    navigate(`/change-password`);
   };
 
   return (

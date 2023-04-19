@@ -10,7 +10,7 @@ import { memberState } from "stores/memberState";
 
 import BottomMenuBar from "../../../UI/organisms/Navigation/BottomMenuBar";
 
-const EditNicknameContainer = styled.div`
+const ChangePasswordContainer = styled.div`
   ${tw`flex flex-col justify-center items-center h-screen bg-gray-100`}
 `;
 
@@ -47,9 +47,10 @@ const EditButton = styled.button`
   ${tw`w-full mt-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300`}
 `;
 
-const EditNickname: React.FC = () => {
+const ChangePassword: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
-  const [nickname, setNickname] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginPasswordCheck, setLoginPasswordCheck] = useState("");
   const navigate = useNavigate();
 
   const { memberId } = member;
@@ -59,20 +60,20 @@ const EditNickname: React.FC = () => {
     event.preventDefault();
 
     const response = await fetch(
-      "http://localhost:11000/api/v1/auth/nickname",
+      "http://localhost:11000/api/v1/auth/password",
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({ memberId, nickname }),
+        body: JSON.stringify({ memberId, loginPassword, loginPasswordCheck }),
       }
     );
     if (!response.ok) {
       alert("정보를 다시 입력해주세요");
     } else {
-      alert("닉네임 수정이 완료되었습니다.");
+      alert("비밀번호 변경이 완료되었습니다.");
       navigate("/edit");
     }
   };
@@ -80,12 +81,12 @@ const EditNickname: React.FC = () => {
   useEffect(() => {
     setMember((prev) => ({
       ...prev,
-      nickname,
+      loginPassword,
     }));
-  }, [nickname]);
+  }, [loginPassword]);
 
   return (
-    <EditNicknameContainer>
+    <ChangePasswordContainer>
       <EditCard>
         <TitleContainer>
           <span>
@@ -94,22 +95,28 @@ const EditNickname: React.FC = () => {
             </Link>
           </span>
           <p>
-            <h1>닉네임 수정</h1>
+            <h1>비밀번호 변경하기</h1>
           </p>
         </TitleContainer>
         <EditForm onSubmit={handleEditSubmit}>
           <Input
-            type="text"
-            placeholder="변경하실 닉네임을 작성해주세요"
-            value={nickname}
-            onChange={(event) => setNickname(event.target.value)}
+            type="password"
+            placeholder="변경하실 비밀번호를 작성해주세요"
+            value={loginPassword}
+            onChange={(event) => setLoginPassword(event.target.value)}
           />
-          <EditButton type="submit">수정하기</EditButton>
+          <Input
+            type="password"
+            placeholder="변경하실 비밀번호를 다시 작성해주세요"
+            value={loginPasswordCheck}
+            onChange={(event) => setLoginPasswordCheck(event.target.value)}
+          />
+          <EditButton type="submit">변경하기</EditButton>
         </EditForm>
       </EditCard>
       <BottomMenuBar />
-    </EditNicknameContainer>
+    </ChangePasswordContainer>
   );
 };
 
-export default EditNickname;
+export default ChangePassword;
