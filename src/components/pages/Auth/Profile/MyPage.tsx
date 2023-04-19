@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-import { memberState } from "stores/member";
+import { memberState } from "stores/memberState";
 
 import logo from "../../../../assets/images/hat-logo-black.png";
 import MainPageHeader from "../../../UI/organisms/Header/MainPageHeader";

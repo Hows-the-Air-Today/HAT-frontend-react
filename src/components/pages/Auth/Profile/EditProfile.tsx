@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-import { memberState } from "stores/member";
+import { memberState } from "stores/memberState";
 
 import logo from "../../../../assets/images/hat-logo-black.png";
 import MainPageHeader from "../../../UI/organisms/Header/MainPageHeader";
@@ -73,7 +73,6 @@ const EditMyProfile: React.FC = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   const handleNotificationClick = () => {
     console.log("Notification button clicked");
   };
@@ -91,7 +90,7 @@ const EditMyProfile: React.FC = () => {
     <EditProfileContainer>
       <MainPageHeader
         logoUrl={logo}
-        title="My Info"
+        title="Edit Profile"
         onNotificationClick={handleNotificationClick}
       />
       <Content>
