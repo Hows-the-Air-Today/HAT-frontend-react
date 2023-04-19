@@ -12,16 +12,20 @@ import logo from "../../../assets/images/hat-logo-black.png";
 import MainPageHeader from "../../UI/organisms/Header/MainPageHeader";
 import BottomMenuBar from "../../UI/organisms/Navigation/BottomMenuBar";
 
-const Content = styled.div`
-  ${tw`flex-grow flex flex-col items-center justify-center`}
-  & > * {
-    ${tw`mb-4`}
-  }
-`;
-const AiQualityContainer = styled.div`
+const AirQualityContainer = styled.div`
   ${tw`flex flex-col items-center bg-gray-100`}
+  height: 100vh;
 `;
 
+const Content = styled.div`
+  ${tw`flex-grow flex flex-col items-center justify-center`}
+`;
+
+const Content1 = styled.div`
+  ${tw`flex-grow flex flex-col items-center justify-center`}
+  margin-bottom: 12vh;
+  margin-right: 7vh;
+`;
 function RealTimePage() {
   const [geolocation, setGeolocation] = useRecoilState(geolocationState);
   const [address, setAddress] = useState("");
@@ -90,20 +94,22 @@ function RealTimePage() {
   }
 
   return (
-    <AiQualityContainer>
+    <AirQualityContainer>
       <MainPageHeader
         logoUrl={logo}
         title={address}
         onNotificationClick={handleNotificationClick}
       />
-      <Content>
-        <AirQualityRealTimePage />
-      </Content>
-      <Content>
-        <WeatherRealTimePage />
-      </Content>
+      <div style={{ flex: 1 }}>
+        <Content>
+          <AirQualityRealTimePage />
+        </Content>
+        <Content1>
+          <WeatherRealTimePage />
+        </Content1>
+      </div>
       <BottomMenuBar />
-    </AiQualityContainer>
+    </AirQualityContainer>
   );
 }
 
