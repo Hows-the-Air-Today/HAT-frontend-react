@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { BiEditAlt } from "react-icons/bi";
+import { RiEmotionSadLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 import { useRecoilState } from "recoil";
@@ -61,10 +62,28 @@ const InfoInputContainer = styled.div`
   }
 `;
 
-const EditableNickname = styled.p`
+const WithdrawalContainer = styled.div`
+  ${tw`border-b-2 border-gray-300 pb-2 my-2 flex items-center justify-between`}
+  width: 100%;
+  & span {
+    ${tw`font-bold text-black mr-2`}
+  }
+  & p {
+    ${tw`text-gray-500 text-right`}
+  }
+`;
+
+const EditableInfo = styled.p`
   ${tw`text-gray-500 text-right inline-flex items-center`}
   &:hover {
     ${tw`text-blue-500`}
+  }
+`;
+
+const WithdrawalButton = styled.p`
+  ${tw`text-right inline-flex items-center`}
+  &:hover {
+    ${tw`text-red-500`}
   }
 `;
 
@@ -84,6 +103,11 @@ const EditMyProfile: React.FC = () => {
   const handleEditPasswordClick = () => {
     console.log("Edit nickname clicked");
     navigate(`/change-password`);
+  };
+
+  const handleWithdrawalClick = () => {
+    console.log("Click Withdrawal");
+    navigate(`/withdrawal-check`);
   };
 
   return (
@@ -107,10 +131,10 @@ const EditMyProfile: React.FC = () => {
         </ReadOnlyContainer>
         <InfoInputContainer>
           <span>비밀번호:</span>
-          <EditableNickname onClick={handleEditPasswordClick}>
+          <EditableInfo onClick={handleEditPasswordClick}>
             비밀번호 변경하기
             <BiEditAlt style={{ marginLeft: "8px" }} />
-          </EditableNickname>
+          </EditableInfo>
         </InfoInputContainer>
         <ReadOnlyContainer>
           <span>이메일:</span>
@@ -118,11 +142,17 @@ const EditMyProfile: React.FC = () => {
         </ReadOnlyContainer>
         <InfoInputContainer>
           <span>닉네임:</span>
-          <EditableNickname onClick={handleEditNicknameClick}>
+          <EditableInfo onClick={handleEditNicknameClick}>
             {member && `${member.nickname}`}
             <BiEditAlt style={{ marginLeft: "8px" }} />
-          </EditableNickname>
+          </EditableInfo>
         </InfoInputContainer>
+        <WithdrawalContainer>
+          <span>서비스 탈퇴</span>
+          <WithdrawalButton onClick={handleWithdrawalClick}>
+            <RiEmotionSadLine style={{ marginLeft: "8px" }} />
+          </WithdrawalButton>
+        </WithdrawalContainer>
       </EditCard>
       <BottomMenuBar />
     </EditProfileContainer>
