@@ -54,6 +54,8 @@ module.exports = {
       2,
       { namedComponents: ["arrow-function", "function-declaration"] },
     ],
+    "react/no-array-index-key": "off",
+
     "react/no-unescaped-entities": "off",
     // prop-types off
     "react/require-default-props": "off",
