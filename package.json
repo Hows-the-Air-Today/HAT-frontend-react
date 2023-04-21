@@ -118,5 +118,6 @@
       "pre-commit": "lint-staged",
       "pre-push": "./husky/pre-push"
     }
-  }
+  },
+  "proxy": "http://localhost:10000/"
 }
