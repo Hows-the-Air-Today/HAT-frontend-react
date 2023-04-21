@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-import { memberState } from "stores/member";
+import { memberState } from "stores/memberState";
 
 import logo from "../../../../assets/images/hat-logo-black.png";
 import MainPageHeader from "../../../UI/organisms/Header/MainPageHeader";
@@ -98,7 +98,6 @@ const Profile: React.FC = () => {
     try {
       await axios.post("http://localhost:11000/api/v1/auth/logout");
       setMember(null);
-      localStorage.removeItem("recoil-persist");
       navigate("/");
     } catch (error) {
       console.error(error);

@@ -6,7 +6,8 @@ import LoginPage from "components/pages/Auth/Login/LoginPage";
 import { memberState } from "stores";
 
 const AuthRoutes = () => {
-  const isAuthenticated = useRecoilValue(memberState) !== null;
+  const member = useRecoilValue(memberState);
+  const isAuthenticated = member !== null;
 
   return (
     <>

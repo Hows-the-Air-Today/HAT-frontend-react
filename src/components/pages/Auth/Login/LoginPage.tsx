@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-import { memberState } from "stores/member";
+import { memberState } from "stores/memberState";
 
 import logo from "../../../../assets/images/hat-logo-black.png";
 import BottomMenuBar from "../../../UI/organisms/Navigation/BottomMenuBar";
@@ -55,10 +55,9 @@ const LoginPage: React.FC = () => {
     } else {
       const data = await response.json();
       setMember(data);
-
       alert("HAT에 오신 것을 환영합니다.");
+      navigate("/my-page");
     }
-    navigate("/my-page");
   };
 
   return (

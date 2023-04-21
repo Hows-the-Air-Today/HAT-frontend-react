@@ -6,8 +6,11 @@ import { RecoilRoot } from "recoil";
 import RealTimePage from "components/pages/AirQuality/RealTimePage";
 import AuthRoutes from "components/pages/Auth/AuthRoutes";
 import LoginPage from "components/pages/Auth/Login/LoginPage";
+import ChangePasswordPage from "components/pages/Auth/Profile/ChangePasswordPage";
+import EditNicknamePage from "components/pages/Auth/Profile/EditNicknamePage";
 import EditProfile from "components/pages/Auth/Profile/EditProfile";
 import MyPage from "components/pages/Auth/Profile/MyPage";
+import WithdrawalPage from "components/pages/Auth/Profile/WithdrawalPage";
 import RegisterPage from "components/pages/Auth/Register/RegisterPage";
 import CommunityPage from "components/pages/Community/CommunityPage";
 import MainPage from "components/pages/Main/MainPage";
@@ -29,6 +32,9 @@ const App: React.FC = () => {
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/my-page" element={<MyPage />} />
             <Route path="/edit" element={<EditProfile />} />
+            <Route path="/edit-nickname" element={<EditNicknamePage />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
+            <Route path="//withdrawal-check" element={<WithdrawalPage />} />
           </Route>
         </Routes>
       </Router>
