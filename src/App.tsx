@@ -15,6 +15,8 @@ import RegisterPage from "components/pages/Auth/Register/RegisterPage";
 import CommunityPage from "components/pages/Community/CommunityPage";
 import MainPage from "components/pages/Main/MainPage";
 
+import CommunityCreatPage from "./components/pages/CommunityCreatPage";
+
 const App: React.FC = () => {
   return (
     <RecoilRoot>
@@ -24,6 +26,8 @@ const App: React.FC = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/airquality" element={<RealTimePage />} />
+          <Route path="/community-create" element={<CommunityCreatPage />} />
+
           <Route element={<AuthRoutes />}>
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/my-page" element={<MyPage />} />
