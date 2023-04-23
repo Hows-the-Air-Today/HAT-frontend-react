@@ -90,8 +90,6 @@ const WithdrawalButton = styled.p`
 const EditMyProfile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const handleNotificationClick = () => {
     console.log("Notification button clicked");
   };

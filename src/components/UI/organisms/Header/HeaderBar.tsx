@@ -8,7 +8,7 @@ import { BackArrowButton } from "../../atoms/button";
 const HeaderBar: React.FC<HeaderBarProps> = ({ title }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/");
+    navigate(-1);
   };
   return (
     <Header>
