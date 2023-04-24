@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -118,6 +118,7 @@ const Input = styled.input`
 
 const EditMyProfile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
+  const [memberProfileImage, setMemberProfileImage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [thumbnail, setThumbnail] = useState<string | null>(null);
@@ -125,6 +126,7 @@ const EditMyProfile: React.FC = () => {
 
   const { memberId } = member;
   const { accessToken } = member;
+
   const handleNotificationClick = () => {
     console.log("Notification button clicked");
   };
@@ -133,20 +135,24 @@ const EditMyProfile: React.FC = () => {
       const formData = new FormData();
       formData.append("profileImg", imageFile);
       formData.append("UUID", memberId);
-
-      axios
-        .patch("http://localhost:11000/api/v1/auth/profile-change", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        const response = await axios.patch(
+          "http://localhost:11000/api/v1/auth/profile-change",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setMemberProfileImage(response.data.data);
+        setShowModal(false);
+        const newMember = { ...member, memberProfileImage: response.data.data };
+        setMember(newMember);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -159,14 +165,9 @@ const EditMyProfile: React.FC = () => {
       const reader = new FileReader();
       reader.readAsDataURL(imageFile);
       reader.onloadend = () => {
-        setMember((prevMember) => ({
-          ...prevMember,
-          profileImage: reader.result,
-        }));
         setThumbnail(reader.result as string);
       };
     }
-    setImageFile(null);
     setShowModal(false);
   };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -198,10 +199,7 @@ const EditMyProfile: React.FC = () => {
         onNotificationClick={handleNotificationClick}
       />
       <Content>
-        <ProfileImage
-          src={thumbnail || "/images/very-good-hat.svg"}
-          alt="Profile image"
-        />
+        <ProfileImage src={member.memberProfileImage} alt="Profile image" />
         <EditProfileButton type="button" onClick={handleEditProfileCheck}>
           <BiEditAlt />
         </EditProfileButton>

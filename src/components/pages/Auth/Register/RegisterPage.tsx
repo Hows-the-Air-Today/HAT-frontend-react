@@ -42,7 +42,7 @@ const RegisterPage: React.FC = () => {
     event.preventDefault();
 
     const response = await fetch(
-      "http://k8s-default-hatingre-74b7349773-1953812321.ap-northeast-2.elb.amazonaws.com/api/v1/auth/register",
+      "http://localhost:11000/api/v1/auth/register",
       {
         method: "POST",
         headers: {

@@ -176,7 +176,7 @@ const Profile: React.FC = () => {
               <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
             </Dropdown>
           )}
-          <ProfileImage src="/images/very-good-hat.svg" alt="Profile image" />
+          <ProfileImage src={member.memberProfileImage} alt="Profile image" />
         </div>
         <ProfileName>{member && `${member.nickname}`}</ProfileName>
         <GridContainer>
