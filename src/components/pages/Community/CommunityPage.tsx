@@ -82,14 +82,16 @@ const CommunityPage: React.FC = () => {
                         alt="프로필이미지"
                       />
                     </PostsPhotoBox>
-                    <span>{postData?.post?.nickname}</span>
+                    <span>{postData?.post?.memberNickname}</span>
                   </div>
                   <span>{postData?.post?.region}</span>
                 </PostsNickNameBar>
-                <WidthFullPhotoImage
-                  src={postData?.post?.imageArray[0]?.postImageUrl}
-                  alt=""
-                />
+                <div>
+                  <WidthFullPhotoImage
+                    src={postData?.post?.imageArray[0]?.postImageUrl}
+                    alt=""
+                  />
+                </div>
                 <FooterBox>
                   <p>{postData?.post?.content}</p>
                   <hr />
