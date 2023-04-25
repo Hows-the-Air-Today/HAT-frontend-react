@@ -1,0 +1,67 @@
+export const dummyPostsList: any = [
+  {
+    id: 1,
+    nickname: "닉네임1",
+    region: "동남구",
+    imgsrc: "https://picsum.photos/500/500",
+    content: "내용1",
+    likeCount: 10,
+    commentCount: 70,
+  },
+  {
+    id: 2,
+    nickname: "닉네임2",
+    region: "동남구",
+    imgsrc: "https://picsum.photos/500/500",
+    content: "내용2",
+    likeCount: 10,
+    commentCount: 70,
+  },
+  {
+    id: 3,
+    nickname: "닉네임3",
+    region: "동남구",
+    imgsrc: "https://picsum.photos/500/500",
+    content: "내용3",
+    likeCount: 10,
+    commentCount: 70,
+  },
+  {
+    id: 4,
+    nickname: "닉네임4",
+    region: "동남구",
+    imgsrc: "https://picsum.photos/500/500",
+    content: "내용4",
+    likeCount: 10,
+    commentCount: 70,
+  },
+  {
+    id: 5,
+    nickname: "닉네임5",
+    region: "동남구",
+    imgsrc: "https://picsum.photos/500/500",
+    content: "내용5",
+    likeCount: 10,
+    commentCount: 70,
+  },
+  {
+    id: 6,
+    nickname: "닉네임7",
+    region: "동남구",
+    imgsrc: "https://picsum.photos/500/500",
+    content: "내용6",
+    likeCount: 10,
+    commentCount: 70,
+  },
+];
+
+export const dummyPopularList: any = [
+  { id: 1, imgsrc: "https://picsum.photos/250/250" },
+  { id: 2, imgsrc: "https://picsum.photos/250/250" },
+  { id: 3, imgsrc: "https://picsum.photos/250/250" },
+  { id: 4, imgsrc: "https://picsum.photos/250/250" },
+  {
+    id: 5,
+    imgsrc: "https://picsum.photos/250/250",
+  },
+];

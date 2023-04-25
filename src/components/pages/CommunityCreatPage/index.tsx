@@ -115,21 +115,22 @@ const CommunityCreatPage: React.FC = () => {
     formData.append("postImagesDto", originPostImages[0]?.postImageUrl);
     formData.append("saveRequestDto", JSON.stringify(body));
 
+    console.log(accessToken);
     try {
       const { data } = await axios.post(
-        `http://localhost:10000/api/v1/post`, // 추후 api.url 달예정
+        `http://localhost:10000/api/v1/post/create-post`, // 추후 api.url 달예정
         formData,
         {
           headers: {
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
           },
         }
       );
       if (data?.msg === "success") {
         alert("게시글 작성이 완료되었습니다");
 
-        navigate("/community");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

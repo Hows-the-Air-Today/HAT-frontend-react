@@ -5,13 +5,22 @@ import App from "App";
 import "styles/styles.css";
 import reportWebVitals from "reportWebVitals";
 
+// eslint-disable-next-line import/order
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// eslint-disable-next-line import/order
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const queryClient = new QueryClient();
+
 root.render(
-  <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen={false} />
     <App />
-  </React.StrictMode>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
