@@ -74,7 +74,8 @@ const ChangePassword: React.FC = () => {
       alert("정보를 다시 입력해주세요");
     } else {
       alert("비밀번호 변경이 완료되었습니다.");
-      navigate("/edit");
+      member.memberState(null);
+      navigate("/");
     }
   };
 

@@ -34,7 +34,7 @@ const App: React.FC = () => {
             <Route path="/edit" element={<EditProfile />} />
             <Route path="/edit-nickname" element={<EditNicknamePage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
-            <Route path="//withdrawal-check" element={<WithdrawalPage />} />
+            <Route path="/withdrawal-check" element={<WithdrawalPage />} />
           </Route>
         </Routes>
       </Router>
