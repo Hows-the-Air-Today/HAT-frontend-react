@@ -39,6 +39,8 @@ module.exports = {
 
   // 사용자 편의 규칙 추가
   rules: {
+    "react/prop-types": "off",
+
     // 일치 연산자 사용 필수
     eqeqeq: "warn",
     // var 금지
