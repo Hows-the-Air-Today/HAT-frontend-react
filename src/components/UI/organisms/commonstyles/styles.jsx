@@ -71,7 +71,7 @@ export const CommunityCustomTextArea = styled.textarea`
 export const CommunityInputBox = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 240px);
+  min-height: calc(100vh - 250px);
   gap: 10px;
 `;
 
