@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
+import { Modal } from "@material-ui/core";
+import axios from "axios";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -87,13 +89,92 @@ const WithdrawalButton = styled.p`
   }
 `;
 
+const ModalContent = styled.div`
+  ${tw`flex flex-col items-center justify-center`}
+  & > * {
+    ${tw`mb-4`}
+  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const ThumbnailImage = styled.img`
+  ${tw`max-w-full h-auto`}
+`;
+
+const UploadButton = styled.button`
+  ${tw`w-full mt-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300`}
+`;
+
+const Input = styled.input`
+  ${tw`w-full p-2 my-2 rounded-lg border-gray-300 bg-white`}
+
+  &:focus {
+    ${tw`outline-none border-blue-500`}
+  }
+`;
+
 const EditMyProfile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
+  const [memberProfileImage, setMemberProfileImage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { memberId } = member;
+  const { accessToken } = member;
+
   const handleNotificationClick = () => {
     console.log("Notification button clicked");
+  };
+  const handleUploadButtonClick = async () => {
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("profileImg", imageFile);
+      formData.append("UUID", memberId);
+      try {
+        const response = await axios.patch(
+          "http://localhost:11000/api/v1/auth/profile-change",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setMemberProfileImage(response.data.data);
+        setShowModal(false);
+        const newMember = { ...member, memberProfileImage: response.data.data };
+        setMember(newMember);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const handleEditProfileCheck = () => {
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onloadend = () => {
+        setThumbnail(reader.result as string);
+      };
+    }
+    setShowModal(false);
+  };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImageFile(e.target.files[0]);
+      setThumbnail(URL.createObjectURL(e.target.files[0]));
+    }
   };
 
   const handleEditNicknameClick = () => {
@@ -118,10 +199,21 @@ const EditMyProfile: React.FC = () => {
         onNotificationClick={handleNotificationClick}
       />
       <Content>
-        <ProfileImage src="/images/very-good-hat.svg" alt="Profile image" />
-        <EditProfileButton type="submit">
+        <ProfileImage src={member.memberProfileImage} alt="Profile image" />
+        <EditProfileButton type="button" onClick={handleEditProfileCheck}>
           <BiEditAlt />
         </EditProfileButton>
+        {showModal && (
+          <Modal open={showModal} onClose={handleModalClose}>
+            <ModalContent>
+              <ThumbnailImage src={thumbnail} alt="Thumbnail" />
+              <Input type="file" onChange={handleImageChange} />
+              <UploadButton type="button" onClick={handleUploadButtonClick}>
+                이미지 변경하기
+              </UploadButton>
+            </ModalContent>
+          </Modal>
+        )}
       </Content>
       <EditCard style={{ marginTop: "20px" }}>
         <h1>계정 관리</h1>

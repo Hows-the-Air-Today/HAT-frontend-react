@@ -86,9 +86,13 @@ const DropdownItem = styled.button`
 
 const Profile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
+  const [postImages, setPostImages] = useState([]);
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { memberId } = member;
+  const { accessToken } = member;
 
   const handleEditButtonClick = () => {
     setDropdownOpen(!dropdownOpen);
@@ -130,6 +134,28 @@ const Profile: React.FC = () => {
     };
   }, [dropdownRef]);
 
+  const fetchPostImages = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:10000/api/v1/post/my-page/${memberId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      setPostImages(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (member) {
+      fetchPostImages();
+    }
+  }, [member]);
+
   return (
     <ProfileContainer>
       <MainPageHeader
@@ -150,17 +176,16 @@ const Profile: React.FC = () => {
               <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
             </Dropdown>
           )}
-          <ProfileImage src="/images/very-good-hat.svg" alt="Profile image" />
+          <ProfileImage src={member.memberProfileImage} alt="Profile image" />
         </div>
         <ProfileName>{member && `${member.nickname}`}</ProfileName>
         <GridContainer>
-          <GridItem>
-            <GridItemImage src="/images/sample1.png" alt="Sample 1" />
-            <GridItemOverlay>
-              <GridItemTitle>Post1</GridItemTitle>
-              <GridItemSubtitle>April 1, 2023</GridItemSubtitle>
-            </GridItemOverlay>
-          </GridItem>
+          {postImages.map((postImage) => (
+            <GridItem key={postImage.postId}>
+              <GridItemImage src={postImage.postImageUrl} alt="Post Image" />
+              <GridItemOverlay />
+            </GridItem>
+          ))}
         </GridContainer>
       </Content>
       <BottomMenuBar />
