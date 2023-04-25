@@ -43,7 +43,12 @@ const CommunityPage: React.FC = () => {
         },
       }
     );
-  console.log(popularList);
+
+  useEffect(() => {
+    if (!hasNextPage && !isLoading) {
+      alert("마지막 페이지입니다.");
+    }
+  }, [hasNextPage]);
 
   return (
     <div>
