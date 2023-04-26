@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import * as Ai from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { useRecoilState } from "recoil";
 
+import { postCreateAndUpdate } from "../../../api/community";
 import { memberState } from "../../../stores";
+import { typeOfImageCheckValidation } from "../../../utils/utils-js";
 import { CommonButton } from "../../UI/atoms/button";
 import { CommunityTextAreaField } from "../../UI/atoms/input";
 import {
@@ -25,30 +27,37 @@ const CommunityCreatPage: React.FC = () => {
   const postImageBoxCount = 1;
 
   const navigate = useNavigate();
+  const location = useLocation();
   const imageInput = useRef<HTMLInputElement>(null);
+  const locationState = location?.state;
 
   const [member, setMember] = useRecoilState(memberState);
 
   const { accessToken } = member;
   const { nickname } = member;
   const { memberId } = member;
+  const { memberProfileImage } = member;
 
   const [boxIndex, setBoxIndex] = useState<number>();
-
   const [textFieldData, setTextFieldData] = useState({
-    content: "",
+    content: locationState?.data?.content ? locationState?.data?.content : "",
   });
 
   const [postImages, setPostImages] = useState([
     ...new Array(1).fill({
-      postImageUrl: "",
+      postImageUrl: locationState?.data?.imageUrl
+        ? locationState?.data?.imageUrl
+        : "",
     }),
   ]);
   const [originPostImages, setOriginPostImages] = useState<any>(
     new Array(postImageBoxCount).fill({
-      postImageUrl: "",
+      postImageUrl: locationState?.data?.imageUrl
+        ? locationState?.data?.imageUrl
+        : "",
     })
   );
+
   const handleChangeFileRender = (e, index) => {
     e.preventDefault();
     const file = imageInput.current.files[0];
@@ -93,8 +102,7 @@ const CommunityCreatPage: React.FC = () => {
   const handleDataChange = (type) => (e) => {
     setTextFieldData({ ...textFieldData, [type]: e.target.value });
   };
-
-  const onSubmitPosts = async () => {
+  const onSubmitPosts = () => {
     const formData = new FormData();
 
     if (
@@ -110,37 +118,36 @@ const CommunityCreatPage: React.FC = () => {
       memberId,
       content: textFieldData?.content,
       memberNickname: nickname,
+      memberImageUrl: memberProfileImage,
     };
+    const typeCheck = typeOfImageCheckValidation(
+      originPostImages[0]?.postImageUrl
+    );
+    if (typeCheck === "파일") {
+      formData.append("postImagesDto", originPostImages[0]?.postImageUrl);
+    } else {
+      formData.append(
+        "stringImagesDto",
+        JSON.stringify(originPostImages[0]?.postImageUrl)
+      );
+    }
 
-    formData.append("postImagesDto", originPostImages[0]?.postImageUrl);
     formData.append("saveRequestDto", JSON.stringify(body));
 
-    console.log(accessToken);
-    try {
-      const { data } = await axios.post(
-        `http://localhost:10000/api/v1/post/create-post`, // 추후 api.url 달예정
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      if (data?.msg === "success") {
-        alert("게시글 작성이 완료되었습니다");
-
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-      // console.log(e?.response);
-    }
+    postCreateAndUpdate(locationState, formData, accessToken)
+      .then((res) => {
+        navigate(-1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <div>
-      <HeaderBar title="게시물 작성" />
+      <HeaderBar
+        title={locationState?.type === "수정" ? "게시물 수정" : "게시물 작성"}
+      />
       <RootBox>
         <FlexBox>
           {postImages.map((item, index) => (
@@ -181,6 +188,7 @@ const CommunityCreatPage: React.FC = () => {
         </FlexBox>
         <CommunityInputBox>
           <CommunityTextAreaField
+            value={textFieldData?.content}
             onChange={handleDataChange("content")}
             placeholder="내용을 입력해주세요"
           />
@@ -188,7 +196,7 @@ const CommunityCreatPage: React.FC = () => {
         <CommunityFooter>
           <CommonButton
             variant="outlined"
-            text="등록"
+            text={locationState?.type === "수정" ? "수정" : "등록"}
             onClick={onSubmitPosts}
           />
         </CommunityFooter>

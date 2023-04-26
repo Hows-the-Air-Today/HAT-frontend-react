@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
-import { RiMore2Fill } from "react-icons/ri";
+import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { dummyPopularList } from "./dummy";
 import {
@@ -39,12 +37,7 @@ const CommunityPage: React.FC = () => {
       }
     );
 
-  useEffect(() => {
-    if (!hasNextPage && !isLoading) {
-      alert("마지막 페이지입니다.");
-    }
-  }, [hasNextPage]);
-
+  console.log(data);
   return (
     <div>
       <HeaderBar title="HAT-커뮤니티" />
@@ -73,6 +66,9 @@ const CommunityPage: React.FC = () => {
                   postDataPost={postData?.post}
                   postsDataCommentCount={postData?.commentCount}
                   postsDatalikeCount={postData?.likeCount}
+                  isOpenUpdate={false}
+                  options={false}
+                  handleOpenClick={false}
                 />
               </>
             ))
