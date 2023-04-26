@@ -50,6 +50,7 @@ const EditButton = styled.button`
 const EditNickname: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [nickname, setNickname] = useState("");
+  const prevNicknameRef = useRef(member.nickname);
   const navigate = useNavigate();
 
   const { memberId } = member;
@@ -57,6 +58,11 @@ const EditNickname: React.FC = () => {
 
   const handleEditSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!nickname) {
+      alert("변경하실 닉네임을 입력해주세요.");
+      return;
+    }
 
     const response = await fetch(
       "http://localhost:11000/api/v1/auth/nickname",
@@ -73,16 +79,13 @@ const EditNickname: React.FC = () => {
       alert("정보를 다시 입력해주세요");
     } else {
       alert("닉네임 수정이 완료되었습니다.");
+      setMember((prev) => ({
+        ...prev,
+        nickname,
+      }));
       navigate("/edit");
     }
   };
-
-  useEffect(() => {
-    setMember((prev) => ({
-      ...prev,
-      nickname,
-    }));
-  }, [nickname]);
 
   return (
     <EditNicknameContainer>
