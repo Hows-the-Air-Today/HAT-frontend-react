@@ -16,6 +16,8 @@ import CommunityPage from "components/pages/Community/CommunityPage";
 import CommunityCreatPage from "components/pages/CommunityCreatPage";
 import MainPage from "components/pages/Main/MainPage";
 
+import CommunityDetailPage from "./components/pages/community-detail";
+
 const App: React.FC = () => {
   return (
     <RecoilRoot>
@@ -34,6 +36,9 @@ const App: React.FC = () => {
             <Route path="/edit-nickname" element={<EditNicknamePage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/withdrawal-check" element={<WithdrawalPage />} />
+            <Route path="/community-detail" element={<CommunityDetailPage />}>
+              <Route path=":id" element={<CommunityDetailPage />} />
+            </Route>
           </Route>
         </Routes>
       </Router>

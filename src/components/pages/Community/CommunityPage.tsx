@@ -1,26 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
-import { RiMore2Fill } from "react-icons/ri";
+import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { dummyPopularList } from "./dummy";
 import {
-  CommentLikesContainer,
-  FooterBox,
-  IconContainer,
   PopularBox,
   PopularPhotoBox,
   PopularPhotoImageBox,
-  PostsNickNameBar,
-  PostsPhotoBox,
   PostsRootBox,
   WidthFullPhotoImage,
 } from "./styles";
-import { deletePost, getPost } from "../../../api/community";
-import DropBoxMenu from "../../UI/organisms/dropBox/DropBoxMenu";
+import { getPost } from "../../../api/community";
 import HeaderBar from "../../UI/organisms/Header/HeaderBar";
+import PostsCard from "../../UI/organisms/postscard/PostsCard";
 import SelectBox from "../../UI/organisms/selectBox";
 
 const CommunityPage: React.FC = () => {
@@ -44,12 +37,7 @@ const CommunityPage: React.FC = () => {
       }
     );
 
-  useEffect(() => {
-    if (!hasNextPage && !isLoading) {
-      alert("마지막 페이지입니다.");
-    }
-  }, [hasNextPage]);
-
+  console.log(data);
   return (
     <div>
       <HeaderBar title="HAT-커뮤니티" />
@@ -73,42 +61,16 @@ const CommunityPage: React.FC = () => {
         <PostsRootBox>
           {data?.pages?.map((page) =>
             page?.data?.data?.postList?.data?.map((postData) => (
-              <div key={postData?.post?.id}>
-                <PostsNickNameBar>
-                  <div>
-                    <PostsPhotoBox>
-                      <img
-                        src={postData?.post?.memberImage}
-                        alt="프로필이미지"
-                      />
-                    </PostsPhotoBox>
-                    <span>{postData?.post?.memberNickname}</span>
-                  </div>
-                  <span>{postData?.post?.region}</span>
-                </PostsNickNameBar>
-                <div>
-                  <WidthFullPhotoImage
-                    src={postData?.post?.imageArray[0]?.postImageUrl}
-                    alt=""
-                  />
-                </div>
-                <FooterBox>
-                  <p>{postData?.post?.content}</p>
-                  <hr />
-                  <CommentLikesContainer>
-                    <div className="flex gap-1">
-                      <IconContainer>
-                        <AiOutlineComment size={33} />
-                        <p>{postData?.commentCount} 개</p>
-                      </IconContainer>
-                      <IconContainer>
-                        <AiOutlineHeart size={33} />
-                        <p>{postData?.likeCount} 개</p>
-                      </IconContainer>
-                    </div>
-                  </CommentLikesContainer>
-                </FooterBox>
-              </div>
+              <>
+                <PostsCard
+                  postDataPost={postData?.post}
+                  postsDataCommentCount={postData?.commentCount}
+                  postsDatalikeCount={postData?.likeCount}
+                  isOpenUpdate={false}
+                  options={false}
+                  handleOpenClick={false}
+                />
+              </>
             ))
           )}
         </PostsRootBox>

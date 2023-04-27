@@ -60,11 +60,11 @@ const GridItemSubtitle = styled.p`
   ${tw`text-gray-500`}
 `;
 
-const Icon = styled(BiDotsVerticalRounded)`
+export const Icon = styled(BiDotsVerticalRounded)`
   font-size: 32px;
 `;
 
-const EditButton = styled.button`
+export const EditButton = styled.button`
   position: absolute;
   right: 16px;
   margin: 16px;
@@ -73,11 +73,11 @@ const EditButton = styled.button`
   align-items: center;
 `;
 
-const Dropdown = styled.div`
+export const Dropdown = styled.div`
   ${tw`absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl z-10`}
 `;
 
-const DropdownItem = styled.button`
+export const DropdownItem = styled.button`
   ${tw`w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900`}
   &:focus {
     ${tw`bg-gray-100`}
@@ -181,7 +181,14 @@ const Profile: React.FC = () => {
         <ProfileName>{member && `${member.nickname}`}</ProfileName>
         <GridContainer>
           {postImages.map((postImage) => (
-            <GridItem key={postImage.postId}>
+            <GridItem
+              onClick={() => {
+                navigate(`/community-detail/${postImage.postId}`, {
+                  state: postImage,
+                });
+              }}
+              key={postImage.postId}
+            >
               <GridItemImage src={postImage.postImageUrl} alt="Post Image" />
               <GridItemOverlay />
             </GridItem>
