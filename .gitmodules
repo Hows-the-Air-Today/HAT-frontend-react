@@ -1,0 +1,3 @@
+[submodule "security-frontend-react"]
+	path = security-frontend-react
+	url = https://github.com/Hows-the-Air-Today/security-frontend-react.git

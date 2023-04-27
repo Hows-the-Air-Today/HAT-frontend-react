@@ -5,10 +5,11 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-import { MainPageHeaderProps } from "../../../../interface/MainPageHeader";
+import Location from "components/UI/atoms/Location";
+import { MainPageHeaderProps } from "interface/MainPageHeader";
 
 const Header = styled.header`
-  ${tw`w-full py-4 px-6 bg-white shadow-md flex items-center justify-between`}
+  ${tw`w-full py-1 px-4 bg-white flex items-center justify-between`}
 `;
 
 const Logo = styled.img`
@@ -27,7 +28,7 @@ const MainPageHeader: React.FC<MainPageHeaderProps> = ({
   return (
     <Header>
       <Logo src={logoUrl} alt="Logo" />
-      <Title>{title}</Title>
+      <Location />
       <IconButton onClick={onNotificationClick} color="primary">
         <NotificationsIcon />
       </IconButton>
