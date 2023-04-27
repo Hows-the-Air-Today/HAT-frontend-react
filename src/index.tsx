@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 
 import App from "App";
 import "styles/styles.css";
+import "styles/global.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import reportWebVitals from "reportWebVitals";
 
 // eslint-disable-next-line import/order
