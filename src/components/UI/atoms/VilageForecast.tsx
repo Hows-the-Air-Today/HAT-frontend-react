@@ -16,7 +16,7 @@ interface VilageForecastProps {
 
 const getWeatherIcon = (sky, pty) => {
   if (pty === "1") {
-    return <GiHeavyRain />;
+    return <WiRain />;
   }
   if (pty === "2") {
     return <WiRainMix />;
@@ -25,7 +25,7 @@ const getWeatherIcon = (sky, pty) => {
     return <BsSnow2 />;
   }
   if (pty === "4") {
-    return <WiRain />;
+    return <GiHeavyRain />;
   }
   if (sky === "1") {
     return <IoSunny />;
