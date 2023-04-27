@@ -32,7 +32,7 @@ export async function detailPost(postsId, accessToken) {
 
 export async function postCreateAndUpdate(location, formData, accessToken) {
   const { data } =
-    location?.type === "undefined"
+    location === null
       ? await axios.post(
           `http://localhost:10000/api/v1/post/create-post`, // 추후 api.url 달예정
           formData,

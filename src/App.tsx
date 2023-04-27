@@ -12,6 +12,7 @@ import EditProfile from "components/pages/Auth/Profile/EditProfile";
 import MyPage from "components/pages/Auth/Profile/MyPage";
 import WithdrawalPage from "components/pages/Auth/Profile/WithdrawalPage";
 import RegisterPage from "components/pages/Auth/Register/RegisterPage";
+import CommentPage from "components/pages/Comment/CommentPage";
 import CommunityPage from "components/pages/Community/CommunityPage";
 import CommunityCreatPage from "components/pages/CommunityCreatPage";
 import MainPage from "components/pages/Main/MainPage";
@@ -39,6 +40,7 @@ const App: React.FC = () => {
             <Route path="/community-detail" element={<CommunityDetailPage />}>
               <Route path=":id" element={<CommunityDetailPage />} />
             </Route>
+            <Route path="/:postId/comment" element={<CommentPage />} />
           </Route>
         </Routes>
       </Router>

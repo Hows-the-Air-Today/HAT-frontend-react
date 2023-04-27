@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineComment, AiOutlineHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 import {
   CommentLikesContainer,
@@ -20,6 +21,7 @@ const PostsCard = ({
   handleOpenClick,
 }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div key={postDataPost?.id}>
@@ -52,7 +54,9 @@ const PostsCard = ({
         <hr />
         <CommentLikesContainer>
           <div className="flex gap-1">
-            <IconContainer>
+            <IconContainer
+              onClick={() => navigate(`/${postDataPost?.id}/comment`)}
+            >
               <AiOutlineComment size={33} />
               <p>{postsDataCommentCount} 개</p>
             </IconContainer>
