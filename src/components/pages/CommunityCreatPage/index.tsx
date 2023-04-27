@@ -136,7 +136,12 @@ const CommunityCreatPage: React.FC = () => {
 
     postCreateAndUpdate(locationState, formData, accessToken)
       .then((res) => {
+        console.log(res);
+
         navigate(-1);
+        alert(
+          `게시물 ${locationState === null ? "작성" : "수정"} 완료되었습니다.`
+        );
       })
       .catch((err) => {
         console.log(err);
