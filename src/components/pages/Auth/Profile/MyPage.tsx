@@ -86,6 +86,7 @@ export const DropdownItem = styled.button`
 
 const host = process.env.REACT_APP_HOST;
 const memberUrl = process.env.REACT_APP_MEMBER;
+const communityUrl = process.env.REACT_APP_COMMUNITY;
 
 const Profile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
@@ -140,7 +141,7 @@ const Profile: React.FC = () => {
   const fetchPostImages = async () => {
     try {
       const response = await axios.get(
-        `${host}${memberUrl}/my-page/${memberId}`,
+        `${host}${communityUrl}/my-page/${memberId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
