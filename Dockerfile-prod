@@ -1,0 +1,20 @@
+# nginx:latest 이미지 사용
+FROM nginx:latest
+
+# 컨테이너 내부의 /app 디렉토리 생성
+WORKDIR /app
+
+# nginx 기본 설정 삭제
+RUN rm -rf /etc/nginx/conf.d/default.conf
+
+# nginx 설정 파일 복사
+COPY ./nginx.conf /etc/nginx/conf.d
+
+# build 디렉토리의 파일들을 nginx 디렉토리로 복사
+COPY build /usr/share/nginx/html
+
+# 80번 포트 오픈
+EXPOSE 80
+
+# 컨테이너 시작 시 서버 실행 명령
+CMD ["nginx", "-g", "daemon off;"]
