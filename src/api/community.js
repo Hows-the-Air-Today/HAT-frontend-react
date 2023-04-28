@@ -3,11 +3,14 @@ import axios from "axios";
 const host = process.env.REACT_APP_HOST;
 const community = process.env.REACT_APP_COMMUNITY;
 
-export async function getPost({ setPopularList, region, limit, createdAt }) {
-  const { data } = await axios.get(`${host}${community}`, {
+export async function getPost({ region, limit, createdAt, accessToken }) {
+  const { data } = await axios.get(`${host}${community}/`, {
     params: { region, limit, createdAt },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
-  setPopularList(data?.data?.postList?.data[0]?.popularList);
   return { data };
 }
 
@@ -54,6 +57,15 @@ export async function postCreateAndUpdate(location, formData, accessToken) {
             },
           }
         );
-  console.log(location?.data?.postId);
-  console.log(data);
+}
+
+export async function getPopular(region, accessToken) {
+  const { data } = await axios.get(`${host}${community}/get-popular`, {
+    params: { region },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return { data };
 }
