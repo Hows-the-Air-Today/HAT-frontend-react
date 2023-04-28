@@ -84,6 +84,9 @@ export const DropdownItem = styled.button`
   }
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const Profile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [postImages, setPostImages] = useState([]);
@@ -100,7 +103,7 @@ const Profile: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:11000/api/v1/auth/logout");
+      await axios.post(`${host}${memberUrl}/logout`);
       setMember(null);
       navigate("/");
     } catch (error) {
@@ -137,7 +140,7 @@ const Profile: React.FC = () => {
   const fetchPostImages = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:10000/api/v1/post/my-page/${memberId}`,
+        `${host}${memberUrl}/my-page/${memberId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

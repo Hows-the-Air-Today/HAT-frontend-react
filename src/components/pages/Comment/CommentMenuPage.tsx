@@ -47,6 +47,9 @@ interface LowComponentProps {
   deleteId: (id: string) => void;
 }
 
+const host = process.env.REACT_APP_HOST;
+const community = process.env.REACT_APP_COMMUNITY;
+
 const CommentMenuPage: React.FC<{
   commentId: UUID;
   comment: any;
@@ -73,14 +76,11 @@ const CommentMenuPage: React.FC<{
 
   const deleteComment = () => {
     axios
-      .delete(
-        `http://localhost:10000/api/v1/post/${postId}/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
+      .delete(`${host}${community}/${postId}/comments/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       .then((response) => {
         alert("삭제됨");
         deleteId(id);

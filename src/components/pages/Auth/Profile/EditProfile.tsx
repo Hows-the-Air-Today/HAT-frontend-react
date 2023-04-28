@@ -116,6 +116,9 @@ const Input = styled.input`
   }
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const EditMyProfile: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [memberProfileImage, setMemberProfileImage] = useState("");
@@ -137,7 +140,7 @@ const EditMyProfile: React.FC = () => {
       formData.append("UUID", memberId);
       try {
         const response = await axios.patch(
-          "http://localhost:11000/api/v1/auth/profile-change",
+          `${host}${memberUrl}/profile-change`,
           formData,
           {
             headers: {

@@ -1,7 +1,10 @@
 import axios from "axios";
 
+const host = process.env.REACT_APP_HOST;
+const community = process.env.REACT_APP_COMMUNITY;
+
 export async function getPost({ setPopularList, region, limit, createdAt }) {
-  const { data } = await axios.get("http://localhost:10000/api/v1/post/", {
+  const { data } = await axios.get(`${host}${community}`, {
     params: { region, limit, createdAt },
   });
   setPopularList(data?.data?.postList?.data[0]?.popularList);
@@ -9,9 +12,7 @@ export async function getPost({ setPopularList, region, limit, createdAt }) {
 }
 
 export async function deletePost(postsId) {
-  const { data } = await axios.delete(
-    `http://localhost:10000/api/v1/post/${postsId}`
-  );
+  const { data } = await axios.delete(`${host}${community}/${postsId}`);
 
   return { data };
 }
@@ -19,7 +20,7 @@ export async function deletePost(postsId) {
 // eslint-disable-next-line consistent-return
 export async function detailPost(postsId, accessToken) {
   const { data } = await axios.get(
-    `http://localhost:10000/api/v1/post/post-detail/${postsId}`,
+    `${host}${community}/post-detail/${postsId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +35,7 @@ export async function postCreateAndUpdate(location, formData, accessToken) {
   const { data } =
     location === null
       ? await axios.post(
-          `http://localhost:10000/api/v1/post/create-post`, // 추후 api.url 달예정
+          `${host}${community}/create-post`, // 추후 api.url 달예정
           formData,
           {
             headers: {
@@ -44,7 +45,7 @@ export async function postCreateAndUpdate(location, formData, accessToken) {
           }
         )
       : await axios.patch(
-          `http://localhost:10000/api/v1/post/${location?.data?.postId}`,
+          `${host}${community}/${location?.data?.postId}`,
           formData,
           {
             headers: {
