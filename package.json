@@ -47,6 +47,7 @@
     "watch:css": "postcss src/styles/tailwind.css -o src/styles/styles.css",
     "start": "npm run watch:css & react-scripts start",
     "build": "GENERATE_SOURCEMAP=false npm run build:css & react-scripts build",
+    "build:ci": "CI=false GENERATE_SOURCEMAP=false npm run build:css & react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
