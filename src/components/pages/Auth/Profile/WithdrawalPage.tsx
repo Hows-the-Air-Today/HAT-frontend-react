@@ -75,6 +75,9 @@ const TextCardDescription = styled.p`
   margin: 16px;
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const WithdrawalMember: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [isWithdrawalConfirmed, setIsWithdrawalConfirmed] = useState(false);
@@ -93,17 +96,14 @@ const WithdrawalMember: React.FC = () => {
       return;
     }
 
-    const response = await fetch(
-      `http://localhost:11000/api/v1/auth/${memberId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ memberId }),
-      }
-    );
+    const response = await fetch(`${host}${memberUrl}/${memberId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ memberId }),
+    });
     if (!response.ok) {
       alert("서비스 탈퇴에 실패했습니다. 다시 시도해주세요.");
     } else {

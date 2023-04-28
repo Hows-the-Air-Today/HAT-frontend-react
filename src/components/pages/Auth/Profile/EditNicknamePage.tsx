@@ -47,6 +47,9 @@ const EditButton = styled.button`
   ${tw`w-full mt-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300`}
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const EditNickname: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [nickname, setNickname] = useState("");
@@ -64,17 +67,14 @@ const EditNickname: React.FC = () => {
       return;
     }
 
-    const response = await fetch(
-      "http://localhost:11000/api/v1/auth/nickname",
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ memberId, nickname }),
-      }
-    );
+    const response = await fetch(`${host}${memberUrl}/nickname`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ memberId, nickname }),
+    });
     if (!response.ok) {
       alert("정보를 다시 입력해주세요");
     } else {

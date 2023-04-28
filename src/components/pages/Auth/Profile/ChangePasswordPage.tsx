@@ -47,6 +47,9 @@ const EditButton = styled.button`
   ${tw`w-full mt-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300`}
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const ChangePassword: React.FC = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [loginPassword, setLoginPassword] = useState("");
@@ -59,17 +62,14 @@ const ChangePassword: React.FC = () => {
   const handleEditSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const response = await fetch(
-      "http://localhost:11000/api/v1/auth/password",
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ memberId, loginPassword, loginPasswordCheck }),
-      }
-    );
+    const response = await fetch(`${host}${memberUrl}/password`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ memberId, loginPassword, loginPasswordCheck }),
+    });
     if (!response.ok) {
       alert("정보를 다시 입력해주세요");
     } else {

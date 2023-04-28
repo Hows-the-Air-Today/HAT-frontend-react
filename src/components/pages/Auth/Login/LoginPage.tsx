@@ -33,6 +33,9 @@ const LoginButton = styled.button`
   ${tw`w-full mt-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300`}
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const LoginPage: React.FC = () => {
   const [loginId, setLoginId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -42,7 +45,7 @@ const LoginPage: React.FC = () => {
   const handleLoginSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:11000/api/v1/auth/login", {
+    const response = await fetch(`${host}${memberUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",

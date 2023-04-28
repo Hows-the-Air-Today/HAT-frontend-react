@@ -30,6 +30,9 @@ const RegisterButton = styled.button`
   ${tw`w-full mt-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 transition duration-300`}
 `;
 
+const host = process.env.REACT_APP_HOST;
+const memberUrl = process.env.REACT_APP_MEMBER;
+
 const RegisterPage: React.FC = () => {
   const [loginId, setLoginId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -41,22 +44,19 @@ const RegisterPage: React.FC = () => {
   const handleSignUpSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const response = await fetch(
-      "http://localhost:11000/api/v1/auth/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          loginId,
-          loginPassword,
-          loginPasswordCheck,
-          email,
-          nickname,
-        }),
-      }
-    );
+    const response = await fetch(`${host}${memberUrl}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        loginId,
+        loginPassword,
+        loginPasswordCheck,
+        email,
+        nickname,
+      }),
+    });
 
     if (!response.ok) {
       alert("회원가입에 실패하였습니다. 입력 정보를 확인해주세요.");

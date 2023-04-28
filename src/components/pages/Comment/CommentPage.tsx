@@ -88,6 +88,9 @@ const EditForm = styled.div`
   ${tw`mt-2 mb-2`}
 `;
 
+const host = process.env.REACT_APP_HOST;
+const community = process.env.REACT_APP_COMMUNITY;
+
 export const CommentPage: React.FC = () => {
   const [comments, setComments] = useState([]);
   const [noComment, setNoComment] = useState(false);
@@ -120,7 +123,7 @@ export const CommentPage: React.FC = () => {
   const createComment = (content) => {
     axios
       .post(
-        `http://localhost:10000/api/v1/post/${postId}/comments`,
+        `${host}${community}/${postId}/comments`,
         {
           content,
           memberId,
@@ -163,14 +166,11 @@ export const CommentPage: React.FC = () => {
     setLoading(true);
 
     axios
-      .get(
-        `http://localhost:10000/api/v1/post/${postId}/comments?page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
+      .get(`${host}${community}/${postId}/comments?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       .then((response) => {
         setComments((prevComments) => {
           if (page === 0) {
@@ -203,7 +203,7 @@ export const CommentPage: React.FC = () => {
     if (commentContent) {
       axios
         .patch(
-          `http://localhost:10000/api/v1/post/${postId}/comments/${commentId}`,
+          `${host}${community}/${postId}/comments/${commentId}`,
           { content: commentContent },
           {
             headers: {
