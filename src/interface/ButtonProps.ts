@@ -6,7 +6,7 @@ export interface BackArrowProps {
 }
 
 export interface CommonButtonProps {
-  onClick: () => void;
+  onClick: (e) => void;
   text: string;
 
   size?: "small" | "medium" | "large";
