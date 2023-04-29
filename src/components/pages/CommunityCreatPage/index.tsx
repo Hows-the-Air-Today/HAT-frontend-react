@@ -38,6 +38,7 @@ const CommunityCreatPage: React.FC = () => {
   const { memberId } = member;
   const { memberProfileImage } = member;
 
+  const [isUploading, setIsUploading] = useState(false);
   const [boxIndex, setBoxIndex] = useState<number>();
   const [textFieldData, setTextFieldData] = useState({
     content: locationState?.data?.content ? locationState?.data?.content : "",
@@ -102,7 +103,9 @@ const CommunityCreatPage: React.FC = () => {
   const handleDataChange = (type) => (e) => {
     setTextFieldData({ ...textFieldData, [type]: e.target.value });
   };
-  const onSubmitPosts = () => {
+  const onSubmitPosts = (e) => {
+    e.preventDefault();
+
     const formData = new FormData();
 
     if (
@@ -134,9 +137,15 @@ const CommunityCreatPage: React.FC = () => {
 
     formData.append("saveRequestDto", JSON.stringify(body));
 
+    if (isUploading) {
+      alert("게시글이 업로드 중이에요!");
+      return;
+    }
+
+    setIsUploading(true);
     postCreateAndUpdate(locationState, formData, accessToken)
       .then((res) => {
-        console.log(res);
+        setIsUploading(false);
 
         navigate(-1);
         alert(
@@ -144,6 +153,8 @@ const CommunityCreatPage: React.FC = () => {
         );
       })
       .catch((err) => {
+        setIsUploading(false);
+
         console.log(err);
       });
   };
@@ -202,7 +213,9 @@ const CommunityCreatPage: React.FC = () => {
           <CommonButton
             variant="outlined"
             text={locationState?.type === "수정" ? "수정" : "등록"}
-            onClick={onSubmitPosts}
+            onClick={(e) => {
+              onSubmitPosts(e);
+            }}
           />
         </CommunityFooter>
       </RootBox>
