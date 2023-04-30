@@ -29,26 +29,32 @@ const CommunityPage: React.FC = () => {
 
   const { accessToken } = member;
 
-  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useInfiniteQuery(
-      ["getPost", region],
-      ({ pageParam }) =>
-        getPost({
-          region,
-          limit: 10,
-          createdAt: pageParam,
-          accessToken,
-        }),
-      {
-        getNextPageParam: (lastPage) => {
-          const createdParam =
-            lastPage?.data?.data?.postList?.data[
-              lastPage.data.data.postList.data.length - 1
-            ]?.post?.createdAt;
-          return createdParam;
-        },
-      }
-    );
+  const {
+    data,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteQuery(
+    ["getPost", region],
+    ({ pageParam }) =>
+      getPost({
+        region,
+        limit: 10,
+        createdAt: pageParam,
+        accessToken,
+      }),
+    {
+      getNextPageParam: (lastPage) => {
+        const createdParam =
+          lastPage?.data?.data?.postList?.data[
+            lastPage.data.data.postList.data.length - 1
+          ]?.post?.createdAt;
+        return createdParam;
+      },
+    }
+  );
 
   return (
     <div>
@@ -70,6 +76,7 @@ const CommunityPage: React.FC = () => {
               const likedMember = likedMembers?.includes(memberId);
               return (
                 <PostsCard
+                  refetch={refetch}
                   postDataPost={postData?.post}
                   postsDataCommentCount={postData?.commentCount}
                   postsDatalikeCount={postData?.likeCount}
