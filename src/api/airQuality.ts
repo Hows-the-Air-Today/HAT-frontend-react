@@ -13,3 +13,17 @@ export const getAirQuality = async (tmX, tmY) => {
     return null;
   }
 };
+
+export const getAirQualityRanking = async () => {
+  const url = `/ranking`;
+
+  try {
+    const response = await airQualityInstance.get(url);
+
+    return response;
+  } catch (error) {
+    console.error("Error fetching air quality ranking:", error);
+
+    return null;
+  }
+};

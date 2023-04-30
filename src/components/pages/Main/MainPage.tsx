@@ -37,11 +37,11 @@ interface AirQualityDataType {
 }
 
 const Container = styled.div`
-  ${tw`min-h-screen max-w-full flex flex-col items-center justify-center`}
+  ${tw`min-h-screen max-w-full flex flex-col items-center justify-center overflow-x-hidden overflow-y-hidden`}
 `;
 
 const Content = styled.div`
-  ${tw`w-full md:w-3/4 flex-auto flex flex-col items-center justify-center space-y-4`}
+  ${tw`w-full flex flex-auto flex-col items-center justify-center space-y-4`}
 `;
 
 const MainPage: React.FC = () => {

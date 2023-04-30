@@ -25,7 +25,7 @@ export const Icon = [
   {
     title: "rank",
     icon: <BsBarChart color={COLOR} size={ICONSIZE} />,
-    path: "/rank",
+    path: "/airquality/ranking",
   },
   {
     title: "MyPage",

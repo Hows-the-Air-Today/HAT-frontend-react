@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { RecoilRoot } from "recoil";
 
+import AirQualityRankingPage from "components/pages/AirQuality/AirQualityRankingPage";
 import RealTimePage from "components/pages/AirQuality/RealTimePage";
 import AuthRoutes from "components/pages/Auth/AuthRoutes";
 import LoginPage from "components/pages/Auth/Login/LoginPage";
@@ -14,10 +15,9 @@ import WithdrawalPage from "components/pages/Auth/Profile/WithdrawalPage";
 import RegisterPage from "components/pages/Auth/Register/RegisterPage";
 import CommentPage from "components/pages/Comment/CommentPage";
 import CommunityPage from "components/pages/Community/CommunityPage";
+import CommunityDetailPage from "components/pages/community-detail";
 import CommunityCreatPage from "components/pages/CommunityCreatPage";
 import MainPage from "components/pages/Main/MainPage";
-
-import CommunityDetailPage from "./components/pages/community-detail";
 
 const App: React.FC = () => {
   return (
@@ -28,6 +28,10 @@ const App: React.FC = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/airquality" element={<RealTimePage />} />
+          <Route
+            path="/airquality/ranking"
+            element={<AirQualityRankingPage />}
+          />
           <Route path="/community-create" element={<CommunityCreatPage />} />
 
           <Route element={<AuthRoutes />}>

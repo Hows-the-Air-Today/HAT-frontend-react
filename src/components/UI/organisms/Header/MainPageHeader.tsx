@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import IconButton from "@material-ui/core/IconButton";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -25,9 +26,18 @@ const MainPageHeader: React.FC<MainPageHeaderProps> = ({
   title,
   onNotificationClick,
 }) => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <Header>
-      <Logo src={logoUrl} alt="Logo" />
+      {/* eslint-disable-next-line react/button-has-type */}
+      <button onClick={() => handleNavigation("/")}>
+        <Logo src={logoUrl} alt="Logo" />
+      </button>
       <Location />
       <IconButton onClick={onNotificationClick} color="primary">
         <NotificationsIcon />
