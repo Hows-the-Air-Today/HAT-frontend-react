@@ -41,7 +41,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  ${tw`w-full md:w-3/4 flex-auto flex flex-col items-center justify-center space-y-4`}
+  ${tw`w-full flex flex-auto flex-col items-center justify-center space-y-4`}
 `;
 
 const MainPage: React.FC = () => {

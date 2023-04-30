@@ -4,14 +4,14 @@ import {
   differenceInSeconds,
 } from "date-fns";
 
-const getGrade = (value: number): string => {
+const getPMGrade = (value: number): string => {
   if (value <= 15) return "좋음";
   if (value > 15 && value <= 35) return "보통";
   if (value > 35 && value <= 75) return "나쁨";
   return "매우나쁨";
 };
 
-const getKhaiGrade = (value: number): string => {
+const getGrade = (value: number): string => {
   switch (value) {
     case 1:
       return "좋음";
@@ -56,9 +56,9 @@ export const caclulateAirQualityData = (data: any): AirQualityDataType => {
 
   const pm10 = Number(pm10Value);
   const pm25 = Number(pm25Value);
-  const pm10Grade = getGrade(pm10);
-  const pm25Grade = getGrade(pm25);
-  const newKhaiGrade = getKhaiGrade(Number(khaiGrade));
+  const pm10Grade = getPMGrade(pm10);
+  const pm25Grade = getPMGrade(pm25);
+  const newKhaiGrade = getGrade(Number(khaiGrade));
   const timeAgo = getTimeAgo(dataTime);
 
   return <AirQualityDataType>{
