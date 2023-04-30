@@ -23,6 +23,7 @@ const PostsCard = ({
   isOpenUpdate,
   postsDataCommentCount,
   postsDatalikeCount,
+  refetch,
   likedMemberId,
   postDataPost,
   options,
@@ -39,7 +40,7 @@ const PostsCard = ({
   useEffect(() => {
     setLikeCount(postsDatalikeCount);
     setIsLiked(likedMemberId);
-  }, [postsDatalikeCount, likedMemberId]);
+  }, [refetch, postsDatalikeCount, likedMemberId]);
 
   const handleHeartClick = (postId) => {
     axios
@@ -55,6 +56,7 @@ const PostsCard = ({
         }
       )
       .then((response) => {
+        refetch();
         setLikeCount(response.data.data.likeCount);
         setIsLiked(response.data.data.like);
       })
