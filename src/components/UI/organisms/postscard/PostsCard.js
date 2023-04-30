@@ -40,7 +40,7 @@ const PostsCard = ({
   useEffect(() => {
     setLikeCount(postsDatalikeCount);
     setIsLiked(likedMemberId);
-  }, [postsDatalikeCount, likedMemberId]);
+  }, [refetch, postsDatalikeCount, likedMemberId]);
 
   const handleHeartClick = (postId) => {
     axios
