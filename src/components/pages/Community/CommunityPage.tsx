@@ -25,6 +25,8 @@ const CommunityPage: React.FC = () => {
 
   const [member, setMember] = useRecoilState(memberState);
 
+  const { memberId } = member;
+
   const { accessToken } = member;
 
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -43,7 +45,6 @@ const CommunityPage: React.FC = () => {
             lastPage?.data?.data?.postList?.data[
               lastPage.data.data.postList.data.length - 1
             ]?.post?.createdAt;
-
           return createdParam;
         },
       }
@@ -61,18 +62,25 @@ const CommunityPage: React.FC = () => {
       )}
       <InfiniteScroll hasMore={hasNextPage} loadMore={() => fetchNextPage()}>
         <PostsRootBox>
-          {data?.pages?.map((page) =>
-            page?.data?.data?.postList?.data?.map((postData) => (
-              <PostsCard
-                postDataPost={postData?.post}
-                postsDataCommentCount={postData?.commentCount}
-                postsDatalikeCount={postData?.likeCount}
-                isOpenUpdate={false}
-                options={false}
-                handleOpenClick={false}
-              />
-            ))
-          )}
+          {data?.pages?.map((page) => {
+            return page?.data?.data?.postList?.data?.map((postData) => {
+              const likedMembers = postData?.post?.likes
+                ?.filter((like) => like?.liked)
+                ?.map((like) => like?.memberId);
+              const likedMember = likedMembers?.includes(memberId);
+              return (
+                <PostsCard
+                  postDataPost={postData?.post}
+                  postsDataCommentCount={postData?.commentCount}
+                  postsDatalikeCount={postData?.likeCount}
+                  likedMemberId={likedMember}
+                  isOpenUpdate={false}
+                  options={false}
+                  handleOpenClick={false}
+                />
+              );
+            });
+          })}
         </PostsRootBox>
       </InfiniteScroll>
     </div>

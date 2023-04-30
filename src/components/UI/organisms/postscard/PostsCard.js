@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import { AiOutlineComment, AiOutlineHeart } from "react-icons/ai";
+import React, { useState, useEffect } from "react";
+import { AiOutlineComment, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { memberState } from "stores/memberState";
 
 import {
   CommentLikesContainer,
@@ -12,16 +16,52 @@ import {
 } from "../../../pages/Community/styles";
 import DropBoxMenu from "../dropBox/DropBoxMenu";
 
+const host = process.env.REACT_APP_HOST;
+const community = process.env.REACT_APP_COMMUNITY;
+
 const PostsCard = ({
   isOpenUpdate,
   postsDataCommentCount,
   postsDatalikeCount,
+  likedMemberId,
   postDataPost,
   options,
   handleOpenClick,
 }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [member] = useRecoilState(memberState);
+  const [likeCount, setLikeCount] = useState(postsDatalikeCount);
+  const { memberId } = member;
+  const { accessToken } = member;
+  const [isLiked, setIsLiked] = useState(likedMemberId);
+
+  useEffect(() => {
+    setLikeCount(postsDatalikeCount);
+    setIsLiked(likedMemberId);
+  }, [postsDatalikeCount, likedMemberId]);
+
+  const handleHeartClick = (postId) => {
+    axios
+      .post(
+        `${host}${community}/${postId}/likes`,
+        {
+          memberId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((response) => {
+        setLikeCount(response.data.data.likeCount);
+        setIsLiked(response.data.data.like);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div key={postDataPost?.id}>
@@ -55,14 +95,24 @@ const PostsCard = ({
         <CommentLikesContainer>
           <div className="flex gap-1">
             <IconContainer
-              onClick={() => navigate(`/${postDataPost?.id}/comment`)}
+              onClick={() =>
+                navigate(`/${postDataPost?.id || postDataPost?.postId}/comment`)
+              }
             >
               <AiOutlineComment size={33} />
               <p>{postsDataCommentCount} 개</p>
             </IconContainer>
-            <IconContainer>
-              <AiOutlineHeart size={33} />
-              <p>{postsDatalikeCount} 개</p>
+            <IconContainer
+              onClick={() =>
+                handleHeartClick(postDataPost?.id || postDataPost?.postId)
+              }
+            >
+              {isLiked ? (
+                <AiFillHeart size={33} color="red" />
+              ) : (
+                <AiOutlineHeart size={33} />
+              )}
+              <p>{likeCount} 개</p>
             </IconContainer>
           </div>
           <div />

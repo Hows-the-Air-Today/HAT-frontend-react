@@ -21,6 +21,7 @@ const CommunityDetailPage = () => {
   const [member, setMember] = useRecoilState(memberState);
   const [getData, setGetData] = useState([]);
 
+  const { memberId } = member;
   const { accessToken } = member;
 
   useEffect(() => {
@@ -58,14 +59,21 @@ const CommunityDetailPage = () => {
         break;
     }
   };
+
+  const likedMembers = getData?.likes
+    ?.filter((like) => like?.liked)
+    ?.map((like) => like?.memberId);
+  const likedMember = likedMembers?.includes(memberId);
+
   return (
     <div>
       <HeaderBar title="게시물 상세" />
       <PostsCard
         handleOpenClick={handleOpenClick}
         options={options}
-        isOpenUpdate={"업데이트"}
+        isOpenUpdate="업데이트"
         postDataPost={getData}
+        likedMemberId={likedMember}
         postsDataCommentCount={getData?.commentCount}
         postsDatalikeCount={getData?.likeCount}
       />
