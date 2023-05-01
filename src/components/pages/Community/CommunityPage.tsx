@@ -4,19 +4,14 @@ import InfiniteScroll from "react-infinite-scroller";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 
-import { dummyPopularList } from "./dummy";
-import {
-  PopularBox,
-  PopularPhotoBox,
-  PopularPhotoImageBox,
-  PostsRootBox,
-  WidthFullPhotoImage,
-} from "./styles";
+import { PostsRootBox } from "./styles";
 // eslint-disable-next-line import/namespace
 import { getPost } from "../../../api/community";
+import logo from "../../../assets/images/hat-logo-black.png";
 import { memberState } from "../../../stores";
 import PopularCard from "../../UI/molecules/PopularCard";
-import HeaderBar from "../../UI/organisms/Header/HeaderBar";
+import MainPageHeader from "../../UI/organisms/Header/MainPageHeader";
+import BottomMenuBar from "../../UI/organisms/Navigation/BottomMenuBar";
 import PostsCard from "../../UI/organisms/postscard/PostsCard";
 import SelectBox from "../../UI/organisms/selectBox";
 
@@ -58,7 +53,7 @@ const CommunityPage: React.FC = () => {
 
   return (
     <div>
-      <HeaderBar title="HAT-커뮤니티" />
+      <MainPageHeader logoUrl={logo} title="Main Page" />
       <SelectBox setRegion={setRegion} />
       <PopularCard region={region} />
       <hr />
@@ -90,6 +85,7 @@ const CommunityPage: React.FC = () => {
           })}
         </PostsRootBox>
       </InfiniteScroll>
+      <BottomMenuBar />
     </div>
   );
 };
