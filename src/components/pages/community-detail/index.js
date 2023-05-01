@@ -37,7 +37,7 @@ const CommunityDetailPage = () => {
   const handleOpenClick = (type) => {
     switch (type) {
       case "삭제":
-        deletePost(location?.state?.postId, accessToken)
+        deletePost(location?.state?.postId)
           .then((res) => {
             console.log(res);
             alert("성공적으로 삭제되었습니다.");
@@ -60,6 +60,8 @@ const CommunityDetailPage = () => {
     }
   };
 
+  function refetch() {}
+
   const likedMembers = getData?.likes
     ?.filter((like) => like?.liked)
     ?.map((like) => like?.memberId);
@@ -69,6 +71,7 @@ const CommunityDetailPage = () => {
     <div>
       <HeaderBar title="게시물 상세" />
       <PostsCard
+        refetch={refetch || null}
         handleOpenClick={handleOpenClick}
         options={options}
         isOpenUpdate="업데이트"

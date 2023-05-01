@@ -13,6 +13,7 @@ import { memberState } from "stores/memberState";
 
 import CommentMenuPage from "./CommentMenuPage";
 import timeForToday from "./TimeForToday";
+import { Loading } from "../../UI/atoms/Loading";
 import BottomMenuBar from "../../UI/organisms/Navigation/BottomMenuBar";
 
 const Container = styled.div`
@@ -64,7 +65,7 @@ const Editbutton = styled.button`
 `;
 
 const CommentInputContainer = styled.div`
-  ${tw`w-full max-w-lg p-4 rounded-lg shadow-md bg-white mb-9 `}
+  ${tw`w-full max-w-lg p-4 rounded-lg shadow-md bg-white`}
   position: fixed;
   bottom: 0;
   & > * {
@@ -73,11 +74,11 @@ const CommentInputContainer = styled.div`
 `;
 
 const CommentInput = styled.input`
-  ${tw`w-8/12 h-12 px-4 py-2 border border-gray-400 rounded`}
+  ${tw`w-8/12 h-12 px-4 py-2 border border-gray-400 rounded mb-9`}
 `;
 
 const CommentSubmitButton = styled.button`
-  ${tw`w-3/12 ml-6  py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600`}
+  ${tw`w-3/12 ml-6 mb-9 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600`}
 `;
 
 const NotException = styled.div`
@@ -306,7 +307,7 @@ export const CommentPage: React.FC = () => {
           );
         })}
         <NotException>
-          {loading && "로딩중...🌈"}
+          {loading && <Loading />}
           {noComment && "댓글이 없습니다 ⛈️"}
         </NotException>
         {!loading && hasMore && (
