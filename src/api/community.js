@@ -14,8 +14,13 @@ export async function getPost({ region, limit, createdAt, accessToken }) {
   return { data };
 }
 
-export async function deletePost(postsId) {
-  const { data } = await axios.delete(`${host}${community}/${postsId}`);
+export async function deletePost(postsId, accessToken) {
+  const { data } = await axios.delete(`${host}${community}/${postsId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 
   return { data };
 }

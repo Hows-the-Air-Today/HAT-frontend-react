@@ -65,7 +65,7 @@ export const CommunityCustomTextArea = styled.textarea`
   border: 1px solid #e5e7eb;
   outline: none;
   resize: none;
-  height: 250px;
+  height: 230px;
 `;
 
 export const CommunityInputBox = styled.div`
@@ -76,7 +76,15 @@ export const CommunityInputBox = styled.div`
 `;
 
 export const CommunityFooter = styled.div`
-  padding-top: 20px;
+  padding-top: 10px;
   display: flex;
   justify-content: right;
+`;
+
+export const CommunityLoadingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 100px);
+  justify-content: center;
+  align-items: center;
 `;

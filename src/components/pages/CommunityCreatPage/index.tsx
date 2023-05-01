@@ -10,6 +10,7 @@ import { memberState } from "../../../stores";
 import { typeOfImageCheckValidation } from "../../../utils/utils-js";
 import { CommonButton } from "../../UI/atoms/button";
 import { CommunityTextAreaField } from "../../UI/atoms/input";
+import { Loading } from "../../UI/atoms/Loading";
 import {
   CameraBox,
   CameraInput,
@@ -17,6 +18,7 @@ import {
   CancelButton,
   CommunityFooter,
   CommunityInputBox,
+  CommunityLoadingBox,
   CustomImage,
   FlexBox,
   RootBox,
@@ -155,7 +157,7 @@ const CommunityCreatPage: React.FC = () => {
       .catch((err) => {
         setIsUploading(false);
 
-        console.log(err);
+        alert(err?.response?.data?.reason);
       });
   };
 
@@ -164,61 +166,69 @@ const CommunityCreatPage: React.FC = () => {
       <HeaderBar
         title={locationState?.type === "수정" ? "게시물 수정" : "게시물 작성"}
       />
-      <RootBox>
-        <FlexBox>
-          {postImages.map((item, index) => (
-            <div>
-              <CameraInput
-                id="cameraInput"
-                onChange={(e) => {
-                  handleChangeFileRender(e, index);
-                }}
-                type="file"
-                accept="image/*"
-                ref={imageInput}
-              />
-              <CameraRootContainer
-                onClick={() => {
-                  imageInput.current.click();
-                  setBoxIndex(index);
-                }}
-              >
-                <CameraBox>
-                  <Ai.AiOutlinePlus size={20} />
-                  {item?.postImageUrl && (
-                    <CustomImage
-                      src={item?.postImageUrl ? item?.postImageUrl : null}
-                    />
-                  )}
+      {isUploading ? (
+        <CommunityLoadingBox>
+          <Loading />
+        </CommunityLoadingBox>
+      ) : (
+        <>
+          <RootBox>
+            <FlexBox>
+              {postImages.map((item, index) => (
+                <div>
+                  <CameraInput
+                    id="cameraInput"
+                    onChange={(e) => {
+                      handleChangeFileRender(e, index);
+                    }}
+                    type="file"
+                    accept="image/*"
+                    ref={imageInput}
+                  />
+                  <CameraRootContainer
+                    onClick={() => {
+                      imageInput.current.click();
+                      setBoxIndex(index);
+                    }}
+                  >
+                    <CameraBox>
+                      <Ai.AiOutlinePlus size={20} />
+                      {item?.postImageUrl && (
+                        <CustomImage
+                          src={item?.postImageUrl ? item?.postImageUrl : null}
+                        />
+                      )}
 
-                  {item?.postImageUrl && (
-                    <CancelButton
-                      size={20}
-                      onClick={(e) => onClickDeletePicture(e, index)}
-                    />
-                  )}
-                </CameraBox>
-              </CameraRootContainer>
-            </div>
-          ))}
-        </FlexBox>
-        <CommunityInputBox>
-          <CommunityTextAreaField
-            value={textFieldData?.content}
-            onChange={handleDataChange("content")}
-            placeholder="내용을 입력해주세요"
-          />
-        </CommunityInputBox>
-        <CommunityFooter>
-          <CommonButton
-            variant="outlined"
-            text={locationState?.type === "수정" ? "수정" : "등록"}
-            onClick={(e) => {
-              onSubmitPosts(e);
-            }}
-          />
-        </CommunityFooter>
-      </RootBox>
+                      {item?.postImageUrl && (
+                        <CancelButton
+                          size={20}
+                          onClick={(e) => onClickDeletePicture(e, index)}
+                        />
+                      )}
+                    </CameraBox>
+                  </CameraRootContainer>
+                </div>
+              ))}
+            </FlexBox>
+            <CommunityInputBox>
+              <CommunityTextAreaField
+                value={textFieldData?.content}
+                onChange={handleDataChange("content")}
+                placeholder="내용을 입력해주세요"
+              />
+              <CommunityFooter>
+                <CommonButton
+                  variant="outlined"
+                  text={locationState?.type === "수정" ? "수정" : "등록"}
+                  onClick={(e) => {
+                    onSubmitPosts(e);
+                  }}
+                />
+              </CommunityFooter>
+            </CommunityInputBox>
+          </RootBox>
+        </>
+      )}
     </div>
   );
 };
