@@ -37,7 +37,7 @@ const CommunityDetailPage = () => {
   const handleOpenClick = (type) => {
     switch (type) {
       case "삭제":
-        deletePost(location?.state?.postId)
+        deletePost(location?.state?.postId, accessToken)
           .then((res) => {
             console.log(res);
             alert("성공적으로 삭제되었습니다.");
