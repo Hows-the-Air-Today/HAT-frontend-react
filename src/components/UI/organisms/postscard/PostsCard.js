@@ -65,6 +65,12 @@ const PostsCard = ({
       });
   };
 
+  const handleCommentClick = () => {
+    navigate(`/${postDataPost?.id || postDataPost?.postId}/comment`, {
+      state: { refetch },
+    });
+  };
+
   return (
     <div key={postDataPost?.id}>
       <PostsNickNameBar>
@@ -96,11 +102,7 @@ const PostsCard = ({
         <hr />
         <CommentLikesContainer>
           <div className="flex gap-1">
-            <IconContainer
-              onClick={() =>
-                navigate(`/${postDataPost?.id || postDataPost?.postId}/comment`)
-              }
-            >
+            <IconContainer onClick={handleCommentClick}>
               <AiOutlineComment size={33} />
               <p>{postsDataCommentCount} 개</p>
             </IconContainer>
