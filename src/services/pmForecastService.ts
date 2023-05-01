@@ -116,7 +116,7 @@ const mapRegion = (region1depthName, region2depthName) => {
     if (westRegions.includes(cityRegion)) return "영서";
   }
 
-  return cityRegion;
+  return region1depthName;
 };
 
 const getRegionName = (address) => {
