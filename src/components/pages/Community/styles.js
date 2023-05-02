@@ -79,3 +79,10 @@ export const IconContainer = styled.div`
   justify-content: center;
   gap: 3px;
 `;
+
+export const LoadingBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+`;

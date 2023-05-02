@@ -4,11 +4,12 @@ import InfiniteScroll from "react-infinite-scroller";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 
-import { PostsRootBox } from "./styles";
+import { LoadingBox, PostsRootBox } from "./styles";
 // eslint-disable-next-line import/namespace
 import { getPost } from "../../../api/community";
 import logo from "../../../assets/images/hat-logo-black.png";
 import { memberState } from "../../../stores";
+import { Loading } from "../../UI/atoms/Loading";
 import PopularCard from "../../UI/molecules/PopularCard";
 import MainPageHeader from "../../UI/organisms/Header/MainPageHeader";
 import BottomMenuBar from "../../UI/organisms/Navigation/BottomMenuBar";
@@ -85,6 +86,12 @@ const CommunityPage: React.FC = () => {
           })}
         </PostsRootBox>
       </InfiniteScroll>
+      {hasNextPage && (
+        <LoadingBox>
+          <Loading />
+        </LoadingBox>
+      )}
+
       <BottomMenuBar />
     </div>
   );
