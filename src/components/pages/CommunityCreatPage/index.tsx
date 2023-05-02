@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import * as Ai from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import axios from "axios";
 import { useRecoilState } from "recoil";
 
 import { postCreateAndUpdate } from "../../../api/community";
