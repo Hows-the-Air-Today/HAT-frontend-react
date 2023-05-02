@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
